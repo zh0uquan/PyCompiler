@@ -1,9 +1,9 @@
 #!/usr/bin/env python3.5
 # -*- coding: utf-8
-#!/usr/bin/env python3.5
-# -*- coding: utf-8
 
-INTEGER, PLUS, EOF, MINUS, MUL, DIV = 'INTEGER', 'PLUS', 'EOF', 'MINUS', 'MUL', 'DIV'
+INTEGER, PLUS, MINUS, MUL, DIV, EOF = (
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', 'EOF'
+)
 
 
 class Token(object):

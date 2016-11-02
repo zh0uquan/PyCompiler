@@ -1,9 +1,9 @@
 #!/usr/bin/env python3.5
 # -*- coding: utf-8
-#!/usr/bin/env python3.5
-# -*- coding: utf-8
 
-INTEGER, PLUS, EOF, MINUS, MUL, DIV = 'INTEGER', 'PLUS', 'EOF', 'MINUS', 'MUL', 'DIV'
+INTEGER, PLUS, MINUS, MUL, DIV, LPAREN, RPAREN, EOF = (
+    'INTEGER', 'PLUS', 'MINUS', 'MUL', 'DIV', 'EOF', 'LPAREN', 'RPAREN'
+)
 
 
 class Token(object):
@@ -61,6 +61,12 @@ class Lexer(object):
             if self.current_char.isdigit():
                 return Token(INTEGER, self.integer())
 
+            if self.current_char == '(':
+                self.advance()
+                return Token(LPAREN, self.current_char)
+            if self.current_char == ')':
+                self.advance()
+                return Token(RPAREN, self.current_char)
             if self.current_char == '+':
                 self.advance()
                 return Token(PLUS, self.current_char)
@@ -99,8 +105,17 @@ class Interprter(object):
         Return an INTEGER value.
         """
         token = self.current_token
-        self.eat(INTEGER)
-        return token.value
+        if token.type == INTEGER:
+            self.eat(INTEGER)
+            return token.value
+
+        if token.type == LPAREN:
+            self.eat(LPAREN)
+            result = self.expr()
+            self.eat(RPAREN)
+            if result is None:
+                raise self.error()
+            return result
 
     def order(self):
         """
@@ -123,7 +138,7 @@ class Interprter(object):
         Arithmetic expression parser / interpreter.
         expr   : order((PLUS | MINUS)order)*
         order  : factor((MUL | DIV)factor)*
-        factor : INTEGER
+        factor : INTEGER | LPAREN expr RPAREN
         """
         result = self.order()
         while self.current_token.type in (PLUS, MINUS):
