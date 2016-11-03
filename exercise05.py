@@ -63,22 +63,22 @@ class Lexer(object):
 
             if self.current_char == '(':
                 self.advance()
-                return Token(LPAREN, self.current_char)
+                return Token(LPAREN, '(')
             if self.current_char == ')':
                 self.advance()
-                return Token(RPAREN, self.current_char)
+                return Token(RPAREN, ')')
             if self.current_char == '+':
                 self.advance()
-                return Token(PLUS, self.current_char)
+                return Token(PLUS, '+')
             if self.current_char == '-':
                 self.advance()
-                return Token(MINUS, self.current_char)
+                return Token(MINUS, '-')
             if self.current_char == '*':
                 self.advance()
-                return Token(MUL, self.current_char)
+                return Token(MUL, '*')
             if self.current_char == '/':
                 self.advance()
-                return Token(DIV, self.current_char)
+                return Token(DIV, '/')
 
             self.error()
 
