@@ -180,9 +180,9 @@ class Interprter {
 const expr = () => {
   let result = '';
   try {
-    let text = document.getElementById("demo").value;
-    let lexer = new Lexer(text);
-    let interprter = new Interprter(lexer);
+    let text = document.getElementById("demo").value,
+        lexer = new Lexer(text),
+        interprter = new Interprter(lexer);
     result = interprter.expr();
   } catch (e) {
     result = e.toString();

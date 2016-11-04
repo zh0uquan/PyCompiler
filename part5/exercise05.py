@@ -49,6 +49,7 @@ class Lexer(object):
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
             self.advance()
+        print(result)
         return int(result)
 
     def get_next_token(self):
